@@ -124,7 +124,7 @@ function createFaceTexture(label: string) {
     )
     context.save()
     context.translate(256, lowerY)
-    context.scale(1, -1)
+    context.rotate(Math.PI)
     context.fillText(lines[1], 0, 0)
     context.restore()
   } else {
