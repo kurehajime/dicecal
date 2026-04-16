@@ -28,13 +28,6 @@ export function PlaceholderDie({
           roughness={0.35}
         />
       </RoundedBox>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.501, 0]}>
-        <planeGeometry args={[0.78, 0.78]} />
-        <meshStandardMaterial
-          color="#f6eee2"
-          roughness={0.8}
-        />
-      </mesh>
     </RigidBody>
   )
 }

@@ -21,36 +21,46 @@ export function CalendarBase() {
           <boxGeometry args={[7.8, 1.24, 2.25]} />
           <meshStandardMaterial color="#232325" roughness={0.62} />
         </mesh>
-        <mesh castShadow position={[0, 0.02, 0]} receiveShadow>
-          <boxGeometry args={[7.15, 0.08, 1.18]} />
-          <meshStandardMaterial color="#2d2d31" roughness={0.5} />
-        </mesh>
         <mesh position={[0, -0.36, 1.126]} receiveShadow>
           <planeGeometry args={[7.76, 0.5]} />
           <meshStandardMaterial color="#2a2a2d" roughness={0.7} />
         </mesh>
 
+        <mesh castShadow position={[0, 0.16, -0.56]} receiveShadow>
+          <boxGeometry args={[7.1, 0.46, 0.18]} />
+          <meshStandardMaterial color="#2b2c30" roughness={0.58} />
+        </mesh>
+        <mesh castShadow position={[0, -0.02, 0.56]} receiveShadow>
+          <boxGeometry args={[7.1, 0.12, 0.16]} />
+          <meshStandardMaterial color="#2d2e33" roughness={0.62} />
+        </mesh>
+        <mesh castShadow position={[-3.47, 0.08, -0.02]} receiveShadow>
+          <boxGeometry args={[0.14, 0.3, 1.18]} />
+          <meshStandardMaterial color="#2a2b2f" roughness={0.6} />
+        </mesh>
+        <mesh castShadow position={[3.47, 0.08, -0.02]} receiveShadow>
+          <boxGeometry args={[0.14, 0.3, 1.18]} />
+          <meshStandardMaterial color="#2a2b2f" roughness={0.6} />
+        </mesh>
+
         <mesh
-          position={[0, -0.02, 0]}
+          castShadow
+          position={[0, -0.08, -0.02]}
           receiveShadow
-          rotation={[-Math.PI / 2, 0, 0]}
+          rotation={[-0.32, 0, 0]}
         >
-          <planeGeometry args={[7.2, 1.16]} />
-          <meshStandardMaterial color="#2f3135" roughness={0.55} />
+          <boxGeometry args={[7.0, 0.08, 1.04]} />
+          <meshStandardMaterial color="#16171a" roughness={0.92} />
         </mesh>
 
         {diceDefinitions.map((definition) => (
           <mesh
             key={definition.id}
-            position={[
-              definition.placement.basePosition[0],
-              -0.02,
-              definition.placement.basePosition[2],
-            ]}
+            position={[definition.placement.basePosition[0], 0.01, 0.49]}
             receiveShadow
           >
-            <boxGeometry args={[1.06, 0.05, 1.06]} />
-            <meshStandardMaterial color="#1f2022" roughness={0.85} />
+            <boxGeometry args={[0.94, 0.06, 0.08]} />
+            <meshStandardMaterial color="#1a1b1d" roughness={0.96} />
           </mesh>
         ))}
 
