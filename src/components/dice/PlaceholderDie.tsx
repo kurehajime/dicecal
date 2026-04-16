@@ -1,20 +1,63 @@
+import { useEffect, useMemo, useRef } from 'react'
+import { Euler, Group, Quaternion, Vector3 } from 'three'
+import { useFrame } from '@react-three/fiber'
 import type { DiceDefinition } from '../../features/calendar/model/types'
 import { RoundedBox } from '@react-three/drei'
-import { RigidBody } from '@react-three/rapier'
 import { DiceFaceLabels } from './DiceFaceLabels'
  
 type PlaceholderDieProps = {
   definition: DiceDefinition
+  isSelected: boolean
+  onSelect: (diceId: DiceDefinition['id']) => void
 }
 
 export function PlaceholderDie({
   definition,
+  isSelected,
+  onSelect,
 }: PlaceholderDieProps) {
+  const groupRef = useRef<Group>(null)
+
+  const basePosition = useMemo(
+    () => new Vector3(...definition.placement.basePosition),
+    [definition.placement.basePosition],
+  )
+  const selectedPosition = useMemo(() => new Vector3(0.45, 1.92, 1.72), [])
+  const baseQuaternion = useMemo(
+    () =>
+      new Quaternion().setFromEuler(new Euler(...definition.placement.baseRotation)),
+    [definition.placement.baseRotation],
+  )
+
+  useEffect(() => {
+    if (!groupRef.current) {
+      return
+    }
+
+    groupRef.current.position.copy(basePosition)
+    groupRef.current.quaternion.copy(baseQuaternion)
+  }, [basePosition, baseQuaternion])
+
+  useFrame(({ camera }, delta) => {
+    if (!groupRef.current) {
+      return
+    }
+
+    const damping = 1 - Math.exp(-delta * 8)
+    const targetPosition = isSelected ? selectedPosition : basePosition
+    const targetQuaternion = isSelected ? camera.quaternion : baseQuaternion
+
+    groupRef.current.position.lerp(targetPosition, damping)
+    groupRef.current.quaternion.slerp(targetQuaternion, damping)
+  })
+
   return (
-    <RigidBody
-      position={definition.placement.basePosition}
-      rotation={definition.placement.baseRotation}
-      type="fixed"
+    <group
+      ref={groupRef}
+      onClick={(event) => {
+        event.stopPropagation()
+        onSelect(definition.id)
+      }}
     >
       <RoundedBox
         args={[1, 1, 1]}
@@ -33,6 +76,6 @@ export function PlaceholderDie({
         faces={definition.faces}
         textColor={definition.labelColor}
       />
-    </RigidBody>
+    </group>
   )
 }

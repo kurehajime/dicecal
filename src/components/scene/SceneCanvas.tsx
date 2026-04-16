@@ -1,13 +1,23 @@
+import type { DiceKind } from '../../features/calendar/model/types'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { DiceScene } from './DiceScene'
 
-export function SceneCanvas() {
+type SceneCanvasProps = {
+  selectedDiceId: DiceKind | null
+  onSelectDice: (diceId: DiceKind | null) => void
+}
+
+export function SceneCanvas({
+  selectedDiceId,
+  onSelectDice,
+}: SceneCanvasProps) {
   return (
     <Canvas
       camera={{ position: [2.25, 3.25, 12.1], fov: 29.5 }}
       shadows
       dpr={[1, 1.75]}
+      onPointerMissed={() => onSelectDice(null)}
     >
       <color attach="background" args={['#efe6d8']} />
       <fog attach="fog" args={['#efe6d8', 10, 21]} />
@@ -30,7 +40,10 @@ export function SceneCanvas() {
         intensity={0.45}
         position={[-6, 3, -4]}
       />
-      <DiceScene />
+      <DiceScene
+        onSelectDice={onSelectDice}
+        selectedDiceId={selectedDiceId}
+      />
       <OrbitControls
         enableDamping
         enablePan={false}
@@ -38,7 +51,7 @@ export function SceneCanvas() {
         minDistance={7}
         minPolarAngle={0.78}
         maxPolarAngle={1.08}
-        target={[0, -0.12, 0]}
+        target={[0, -0.28, 0]}
       />
     </Canvas>
   )
