@@ -61,7 +61,7 @@ function useArchivoBlackReady() {
   return ready
 }
 
-function createFaceTexture(label: string) {
+function createFaceTexture(label: string, textColor: string) {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 512
@@ -73,7 +73,7 @@ function createFaceTexture(label: string) {
   }
 
   context.clearRect(0, 0, canvas.width, canvas.height)
-  context.fillStyle = '#141414'
+  context.fillStyle = textColor
   context.textAlign = 'center'
   context.textBaseline = 'middle'
 
@@ -142,10 +142,12 @@ function createFaceTexture(label: string) {
 
 type DiceFaceLabelsProps = {
   faces: DiceFaceLabelsMap
+  textColor?: string
 }
 
 export function DiceFaceLabels({
   faces,
+  textColor = '#141414',
 }: DiceFaceLabelsProps) {
   const fontReady = useArchivoBlackReady()
 
@@ -155,14 +157,14 @@ export function DiceFaceLabels({
     }
 
     return {
-      front: createFaceTexture(faces.front),
-      right: createFaceTexture(faces.right),
-      back: createFaceTexture(faces.back),
-      left: createFaceTexture(faces.left),
-      top: createFaceTexture(faces.top),
-      bottom: createFaceTexture(faces.bottom),
+      front: createFaceTexture(faces.front, textColor),
+      right: createFaceTexture(faces.right, textColor),
+      back: createFaceTexture(faces.back, textColor),
+      left: createFaceTexture(faces.left, textColor),
+      top: createFaceTexture(faces.top, textColor),
+      bottom: createFaceTexture(faces.bottom, textColor),
     }
-  }, [faces, fontReady])
+  }, [faces, fontReady, textColor])
 
   useEffect(() => {
     return () => {

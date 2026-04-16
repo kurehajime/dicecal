@@ -29,7 +29,10 @@ export function PlaceholderDie({
           roughness={0.35}
         />
       </RoundedBox>
-      <DiceFaceLabels faces={definition.faces} />
+      <DiceFaceLabels
+        faces={definition.faces}
+        textColor={definition.labelColor}
+      />
     </RigidBody>
   )
 }

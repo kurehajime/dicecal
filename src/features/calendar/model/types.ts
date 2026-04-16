@@ -41,6 +41,7 @@ export type DiceDefinition = {
   id: DiceKind
   kind: DiceKind
   color: string
+  labelColor?: string
   faces: DiceFaceLabels
   placement: DicePlacement
   initialOrientation: DiceOrientation
