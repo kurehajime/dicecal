@@ -22,7 +22,7 @@ export function PlaceholderDie({
     () => new Vector3(...definition.placement.basePosition),
     [definition.placement.basePosition],
   )
-  const selectedPosition = useMemo(() => new Vector3(0.45, 1.92, 1.72), [])
+  const selectedPosition = useMemo(() => new Vector3(0.32, 1.92, 1.72), [])
   const baseQuaternion = useMemo(
     () =>
       new Quaternion().setFromEuler(new Euler(...definition.placement.baseRotation)),
