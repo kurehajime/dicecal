@@ -5,17 +5,18 @@ import { DiceScene } from './DiceScene'
 export function SceneCanvas() {
   return (
     <Canvas
-      camera={{ position: [7.5, 6.5, 7.5], fov: 34 }}
+      camera={{ position: [4.9, 3.05, 9.2], fov: 23 }}
       shadows
       dpr={[1, 1.75]}
     >
       <color attach="background" args={['#efe6d8']} />
-      <fog attach="fog" args={['#efe6d8', 10, 20]} />
-      <ambientLight intensity={1.1} />
+      <fog attach="fog" args={['#efe6d8', 10, 21]} />
+      <hemisphereLight args={['#fff8ef', '#b28b68', 1]} />
+      <ambientLight intensity={0.5} />
       <directionalLight
         castShadow
         intensity={2.2}
-        position={[6, 10, 5]}
+        position={[5, 8, 9]}
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-camera-near={1}
@@ -25,13 +26,19 @@ export function SceneCanvas() {
         shadow-camera-bottom={-10}
         shadow-camera-left={-10}
       />
+      <directionalLight
+        intensity={0.45}
+        position={[-6, 3, -4]}
+      />
       <DiceScene />
       <OrbitControls
+        enableDamping
         enablePan={false}
-        maxDistance={16}
-        minDistance={8}
-        minPolarAngle={0.7}
-        maxPolarAngle={1.35}
+        maxDistance={12}
+        minDistance={6}
+        minPolarAngle={0.78}
+        maxPolarAngle={1.08}
+        target={[0.15, -0.16, 0]}
       />
     </Canvas>
   )

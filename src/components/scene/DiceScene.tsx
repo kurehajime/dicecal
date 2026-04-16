@@ -7,7 +7,7 @@ import { diceDefinitions } from '../../features/calendar/model/definitions'
 export function DiceScene() {
   return (
     <>
-      <group position={[0, -1.35, 0]}>
+      <group position={[0, -0.66, 0]}>
         <Physics gravity={[0, -9.81, 0]}>
           <CalendarBase />
           {diceDefinitions.map((definition) => (
@@ -20,11 +20,11 @@ export function DiceScene() {
       </group>
 
       <ContactShadows
-        blur={2.4}
-        color="#5c4633"
-        opacity={0.45}
-        position={[0, -1.34, 0]}
-        scale={14}
+        blur={2.2}
+        color="#3d3025"
+        opacity={0.25}
+        position={[0, -0.66, 0]}
+        scale={12}
       />
     </>
   )
