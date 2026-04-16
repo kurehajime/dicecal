@@ -1,17 +1,20 @@
+import type { DiceDefinition } from '../../features/calendar/model/types'
 import { RoundedBox } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
-
+ 
 type PlaceholderDieProps = {
-  color: string
-  position: [number, number, number]
+  definition: DiceDefinition
 }
 
 export function PlaceholderDie({
-  color,
-  position,
+  definition,
 }: PlaceholderDieProps) {
   return (
-    <RigidBody position={position} type="fixed">
+    <RigidBody
+      position={definition.placement.basePosition}
+      rotation={definition.placement.baseRotation}
+      type="fixed"
+    >
       <RoundedBox
         args={[1, 1, 1]}
         castShadow
@@ -20,7 +23,7 @@ export function PlaceholderDie({
         smoothness={6}
       >
         <meshStandardMaterial
-          color={color}
+          color={definition.color}
           metalness={0.08}
           roughness={0.35}
         />
