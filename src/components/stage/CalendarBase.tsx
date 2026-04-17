@@ -1,5 +1,6 @@
 import { diceDefinitions } from '../../features/calendar/model/definitions'
 import { CuboidCollider, RigidBody } from '@react-three/rapier'
+import { Text } from '@react-three/drei'
 
 export function CalendarBase() {
   return (
@@ -52,6 +53,24 @@ export function CalendarBase() {
           <boxGeometry args={[4.08, 0.04, 0.84]} />
           <meshStandardMaterial color="#16171a" roughness={0.92} />
         </mesh>
+
+        <group position={[0, -0.2, 0.79]}>
+          <mesh castShadow receiveShadow>
+            <boxGeometry args={[3.46, 0.42, 0.04]} />
+            <meshStandardMaterial color="#f7f5ef" roughness={0.78} />
+          </mesh>
+          <Text
+            color="#111111"
+            fontSize={0.145}
+            fontWeight={900}
+            letterSpacing={0.01}
+            maxWidth={3.1}
+            position={[0, 0, 0.024]}
+            textAlign="center"
+          >
+            Help keep this calendar up to date.
+          </Text>
+        </group>
 
         {diceDefinitions.map((definition) => (
           <mesh
