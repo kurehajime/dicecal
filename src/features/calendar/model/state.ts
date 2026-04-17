@@ -102,7 +102,7 @@ export function rotateDiceOrientation(
   action: RotationAction,
 ): DiceOrientation {
   const nextQuaternion = toThreeQuaternion(orientation.quaternion)
-    .multiply(getActionQuaternion(action))
+    .premultiply(getActionQuaternion(action))
     .normalize()
   const nextQuarterTurns = findNearestQuarterTurns(nextQuaternion)
 
