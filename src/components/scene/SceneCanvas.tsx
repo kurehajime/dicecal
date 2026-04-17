@@ -58,6 +58,7 @@ export function SceneCanvas({
       <OrbitControls
         enableDamping
         enablePan={false}
+        enableZoom={false}
         maxDistance={15.5}
         minDistance={7}
         minPolarAngle={0.78}
