@@ -22,11 +22,11 @@ export function SceneCanvas({
   return (
     <Canvas
       camera={{ position: [2.25, 3.25, 12.1], fov: 29.5 }}
+      gl={{ alpha: true }}
       shadows
       dpr={[1, 1.75]}
       onPointerMissed={() => onSelectDice(null)}
     >
-      <color attach="background" args={['#efe6d8']} />
       <fog attach="fog" args={['#efe6d8', 10, 21]} />
       <hemisphereLight args={['#fff8ef', '#b28b68', 1]} />
       <ambientLight intensity={0.5} />

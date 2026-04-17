@@ -44,11 +44,11 @@ export function DiceScene({
       </group>
 
       <ContactShadows
-        blur={2.2}
-        color="#3d3025"
-        opacity={0.25}
+        blur={2.8}
+        color="#5a4638"
+        opacity={0.12}
         position={[0, -1.445, 0]}
-        scale={12}
+        scale={10}
       />
     </>
   )

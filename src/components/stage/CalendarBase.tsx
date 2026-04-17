@@ -6,14 +6,6 @@ export function CalendarBase() {
   return (
     <>
       <RigidBody colliders={false} type="fixed">
-        <mesh
-          position={[0, -0.54, 0]}
-          receiveShadow
-          rotation={[-Math.PI / 2, 0, 0]}
-        >
-          <planeGeometry args={[30, 30]} />
-          <meshStandardMaterial color="#d8c8b5" roughness={0.95} />
-        </mesh>
         <CuboidCollider args={[15, 0.1, 15]} position={[0, -0.64, 0]} />
       </RigidBody>
 

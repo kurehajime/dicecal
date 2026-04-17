@@ -18,14 +18,10 @@
   --overlay-cluster-size: min(24rem, calc(var(--panel-width) * 0.68));
   --overlay-button-size: min(6.3rem, calc(var(--overlay-cluster-size) * 0.2625));
   aspect-ratio: 3 / 4;
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.78), transparent 48%),
-    linear-gradient(180deg, rgba(255, 250, 244, 0.92), rgba(216, 200, 181, 0.88));
-  border: 1px solid rgba(87, 58, 32, 0.12);
-  border-radius: 1.5rem;
-  box-shadow:
-    0 24px 60px rgba(69, 39, 18, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
   max-height: var(--panel-height-limit);
   min-height: auto;
   overflow: hidden;
