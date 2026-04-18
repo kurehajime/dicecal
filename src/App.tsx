@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Howl } from 'howler'
 import './App.css'
 import putAudioUrl from './assets/media/put.mp3'
 import spinAudioUrl from './assets/media/spin.mp3'
@@ -20,23 +21,27 @@ function App() {
   const [sessionState, setSessionState] = useState(() =>
     createInitialSessionCalendarState(),
   )
-  const putAudioRef = useRef<HTMLAudioElement | null>(null)
-  const spinAudioRef = useRef<HTMLAudioElement | null>(null)
+  const putAudioRef = useRef<Howl | null>(null)
+  const spinAudioRef = useRef<Howl | null>(null)
 
   useEffect(() => {
-    const putAudio = new Audio(putAudioUrl)
-    putAudio.preload = 'auto'
-    putAudio.volume = 0.03
+    const putAudio = new Howl({
+      src: [putAudioUrl],
+      preload: true,
+      volume: 0.03,
+    })
     putAudioRef.current = putAudio
 
-    const spinAudio = new Audio(spinAudioUrl)
-    spinAudio.preload = 'auto'
-    spinAudio.volume = 0.1
+    const spinAudio = new Howl({
+      src: [spinAudioUrl],
+      preload: true,
+      volume: 0.1,
+    })
     spinAudioRef.current = spinAudio
 
     return () => {
-      putAudio.pause()
-      spinAudio.pause()
+      putAudio.unload()
+      spinAudio.unload()
       putAudioRef.current = null
       spinAudioRef.current = null
     }
@@ -49,8 +54,8 @@ function App() {
       return
     }
 
-    audio.currentTime = 0
-    void audio.play().catch(() => { })
+    audio.stop()
+    void audio.play()
   }
 
   const playSpinSound = () => {
@@ -60,8 +65,8 @@ function App() {
       return
     }
 
-    audio.currentTime = 0
-    void audio.play().catch(() => { })
+    audio.stop()
+    void audio.play()
   }
 
   const handleSelectDice = (nextSelectedDiceId: DiceKind | null) => {
