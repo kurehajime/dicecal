@@ -9,6 +9,7 @@ import { DiceScene } from './DiceScene'
 type SceneCanvasProps = {
   diceStates: Record<DiceKind, DiceRuntimeState>
   diceOrder: DiceKind[]
+  onPutSound: () => void
   selectedDiceId: DiceKind | null
   onSelectDice: (diceId: DiceKind | null) => void
 }
@@ -16,6 +17,7 @@ type SceneCanvasProps = {
 export function SceneCanvas({
   diceStates,
   diceOrder,
+  onPutSound,
   selectedDiceId,
   onSelectDice,
 }: SceneCanvasProps) {
@@ -52,6 +54,7 @@ export function SceneCanvas({
       <DiceScene
         diceStates={diceStates}
         diceOrder={diceOrder}
+        onPutSound={onPutSound}
         onSelectDice={onSelectDice}
         selectedDiceId={selectedDiceId}
       />

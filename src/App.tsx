@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { SceneCanvas } from './components/scene/SceneCanvas'
 import { SelectionOverlay } from './components/overlay/SelectionOverlay'
@@ -14,6 +14,49 @@ function App() {
   const [diceStates, setDiceStates] = useState(() => createInitialDiceState())
   const [diceOrder, setDiceOrder] = useState<DiceKind[]>(() => [...diceKinds])
   const [selectedDiceId, setSelectedDiceId] = useState<DiceKind | null>(null)
+  const putAudioRef = useRef<HTMLAudioElement | null>(null)
+  const spinAudioRef = useRef<HTMLAudioElement | null>(null)
+
+  useEffect(() => {
+    const putAudio = new Audio('/put.mp3')
+    putAudio.preload = 'auto'
+    putAudio.volume = 0.03
+    putAudioRef.current = putAudio
+
+    const spinAudio = new Audio('/spin.mp3')
+    spinAudio.preload = 'auto'
+    spinAudio.volume = 0.1
+    spinAudioRef.current = spinAudio
+
+    return () => {
+      putAudio.pause()
+      spinAudio.pause()
+      putAudioRef.current = null
+      spinAudioRef.current = null
+    }
+  }, [])
+
+  const playPutSound = () => {
+    const audio = putAudioRef.current
+
+    if (!audio) {
+      return
+    }
+
+    audio.currentTime = 0
+    void audio.play().catch(() => { })
+  }
+
+  const playSpinSound = () => {
+    const audio = spinAudioRef.current
+
+    if (!audio) {
+      return
+    }
+
+    audio.currentTime = 0
+    void audio.play().catch(() => { })
+  }
 
   const handleSelectDice = (nextSelectedDiceId: DiceKind | null) => {
     setDiceStates((current) => {
@@ -49,6 +92,8 @@ function App() {
     if (!selectedDiceId) {
       return
     }
+
+    playSpinSound()
 
     setDiceStates((current) => {
       const selectedState = current[selectedDiceId]
@@ -113,10 +158,11 @@ function App() {
       }
 
       const nextOrder = [...current]
-      ;[nextOrder[currentIndex], nextOrder[nextIndex]] = [
-        nextOrder[nextIndex],
-        nextOrder[currentIndex],
-      ]
+        ;[nextOrder[currentIndex], nextOrder[nextIndex]] = [
+          nextOrder[nextIndex],
+          nextOrder[currentIndex],
+        ]
+      playPutSound()
 
       return nextOrder
     })
@@ -146,6 +192,7 @@ function App() {
           diceOrder={diceOrder}
           selectedDiceId={selectedDiceId}
           onSelectDice={handleSelectDice}
+          onPutSound={playPutSound}
         />
         <SelectionOverlay
           canMoveLeft={canMoveLeft}

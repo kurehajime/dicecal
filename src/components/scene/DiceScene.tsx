@@ -11,6 +11,7 @@ import { diceDefinitions } from '../../features/calendar/model/definitions'
 type DiceSceneProps = {
   diceStates: Record<DiceKind, DiceRuntimeState>
   diceOrder: DiceKind[]
+  onPutSound: () => void
   selectedDiceId: DiceKind | null
   onSelectDice: (diceId: DiceKind) => void
 }
@@ -18,6 +19,7 @@ type DiceSceneProps = {
 export function DiceScene({
   diceStates,
   diceOrder,
+  onPutSound,
   selectedDiceId,
   onSelectDice,
 }: DiceSceneProps) {
@@ -32,6 +34,7 @@ export function DiceScene({
               key={definition.id}
               definition={definition}
               isSelected={selectedDiceId === definition.id}
+              onPutSound={onPutSound}
               orientationValue={
                 selectedDiceId === definition.id
                   ? diceStates[definition.id].previewOrientation.quaternion
