@@ -185,7 +185,7 @@ function App() {
 
   return (
     <main className="app-shell">
-      <section className="scene-panel" aria-label="Dice calendar 3D scene">
+      <section className="scene-panel" aria-label="Cube calendar 3D scene">
         <SceneCanvas
           diceOrientations={displayedOrientations}
           diceOrder={diceOrder}
