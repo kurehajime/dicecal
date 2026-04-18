@@ -85,9 +85,9 @@
       rgba(255, 255, 255, 0.28),
       rgba(255, 248, 238, 0.1));
   box-shadow:
-    inset 1px 1px 7px rgba(255, 255, 255, 0.56),
-    inset -1px -2px 4px rgba(73, 49, 28, 0.16),
-    0 10px 24px rgba(58, 40, 25, 0.1);
+    inset 1px 1px 4px rgba(255, 255, 255, 0.38),
+    inset -1px -1px 2px rgba(73, 49, 28, 0.1),
+    0 4px 10px rgba(58, 40, 25, 0.05);
 }
 
 .selection-overlay__button:hover::after {
@@ -105,9 +105,9 @@
       rgba(241, 236, 230, 0.24),
       rgba(218, 208, 195, 0.14));
   box-shadow:
-    inset 1px 1px 5px rgba(255, 255, 255, 0.4),
-    inset -1px -1px 3px rgba(81, 63, 47, 0.1),
-    0 6px 14px rgba(58, 40, 25, 0.06);
+    inset 1px 1px 3px rgba(255, 255, 255, 0.28),
+    inset -1px -1px 2px rgba(81, 63, 47, 0.08),
+    0 3px 8px rgba(58, 40, 25, 0.04);
 }
 
 .selection-overlay__button:disabled .selection-overlay__icon {
@@ -199,9 +199,9 @@
       rgba(86, 232, 152, 0.86),
       rgba(22, 164, 99, 0.72));
   box-shadow:
-    inset 1px 1px 8px rgba(184, 255, 216, 0.28),
-    inset -1px -2px 5px rgba(8, 77, 43, 0.34),
-    0 11px 24px rgba(14, 99, 58, 0.24);
+    inset 1px 1px 5px rgba(184, 255, 216, 0.2),
+    inset -1px -1px 3px rgba(8, 77, 43, 0.24),
+    0 5px 12px rgba(14, 99, 58, 0.14);
 }
 
 .selection-overlay__confirm:hover::after {
