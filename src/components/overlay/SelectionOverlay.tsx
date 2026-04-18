@@ -3,6 +3,10 @@ import type {
   DiceKind,
   RotationAction,
 } from '../../features/calendar/model/types'
+import confirmIconUrl from '../../assets/icons/check.svg'
+import downArrowIconUrl from '../../assets/icons/down_arrow.svg'
+import rightMoveIconUrl from '../../assets/icons/rigit_move.svg'
+import rightSpinIconUrl from '../../assets/icons/rigit_spin.svg'
 import { LiquidGlass } from '@mael-667/liquid-glass-react'
 
 type SelectionOverlayProps = {
@@ -26,42 +30,42 @@ const overlayButtons: {
     action: 'tiltUp',
     className: 'overlay-up',
     iconClassName: 'overlay-icon-up',
-    iconSrc: '/down_arrow.svg',
+    iconSrc: downArrowIconUrl,
     label: 'rotate up',
   },
   {
     action: 'tiltDown',
     className: 'overlay-down',
     iconClassName: 'overlay-icon-down',
-    iconSrc: '/down_arrow.svg',
+    iconSrc: downArrowIconUrl,
     label: 'rotate down',
   },
   {
     action: 'tiltLeft',
     className: 'overlay-left',
     iconClassName: 'overlay-icon-left',
-    iconSrc: '/down_arrow.svg',
+    iconSrc: downArrowIconUrl,
     label: 'rotate left',
   },
   {
     action: 'tiltRight',
     className: 'overlay-right',
     iconClassName: 'overlay-icon-right',
-    iconSrc: '/down_arrow.svg',
+    iconSrc: downArrowIconUrl,
     label: 'rotate right',
   },
   {
     action: 'spinCcw',
     className: 'overlay-spin-left',
     iconClassName: 'overlay-icon-spin-left',
-    iconSrc: '/rigit_spin.svg',
+    iconSrc: rightSpinIconUrl,
     label: 'spin counterclockwise',
   },
   {
     action: 'spinCw',
     className: 'overlay-spin-right',
     iconClassName: 'overlay-icon-spin-right',
-    iconSrc: '/rigit_spin.svg',
+    iconSrc: rightSpinIconUrl,
     label: 'spin clockwise',
   },
 ]
@@ -104,7 +108,7 @@ export function SelectionOverlay({
           label="move dice left"
         >
           <img
-            src="/rigit_move.svg"
+            src={rightMoveIconUrl}
             alt=""
             aria-hidden="true"
             className="selection-overlay__icon overlay-icon-move-left"
@@ -117,7 +121,7 @@ export function SelectionOverlay({
           label="move dice right"
         >
           <img
-            src="/rigit_move.svg"
+            src={rightMoveIconUrl}
             alt=""
             aria-hidden="true"
             className="selection-overlay__icon"
@@ -129,7 +133,7 @@ export function SelectionOverlay({
           label="confirm selection"
         >
           <img
-            src="/check.svg"
+            src={confirmIconUrl}
             alt=""
             aria-hidden="true"
             className="selection-overlay__icon selection-overlay__icon--confirm"

@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
+import putAudioUrl from './assets/media/put.mp3'
+import spinAudioUrl from './assets/media/spin.mp3'
 import { SceneCanvas } from './components/scene/SceneCanvas'
 import { SelectionOverlay } from './components/overlay/SelectionOverlay'
 import type { DiceKind, RotationAction } from './features/calendar/model/types'
@@ -22,12 +24,12 @@ function App() {
   const spinAudioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
-    const putAudio = new Audio('/put.mp3')
+    const putAudio = new Audio(putAudioUrl)
     putAudio.preload = 'auto'
     putAudio.volume = 0.03
     putAudioRef.current = putAudio
 
-    const spinAudio = new Audio('/spin.mp3')
+    const spinAudio = new Audio(spinAudioUrl)
     spinAudio.preload = 'auto'
     spinAudio.volume = 0.1
     spinAudioRef.current = spinAudio
