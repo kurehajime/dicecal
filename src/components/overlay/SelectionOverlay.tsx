@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react'
 import type {
   DiceKind,
   RotationAction,
 } from '../../features/calendar/model/types'
+import { LiquidGlass } from '@mael-667/liquid-glass-react'
 
 type SelectionOverlayProps = {
   canMoveLeft: boolean
@@ -81,12 +83,11 @@ export function SelectionOverlay({
     <div className="selection-overlay" aria-live="polite">
       <div className="selection-overlay__cluster">
         {overlayButtons.map((button) => (
-          <button
+          <OverlayGlassButton
             key={button.action}
-            type="button"
-            className={`selection-overlay__button ${button.className}`}
+            className={button.className}
             onClick={() => onRotate(button.action)}
-            aria-label={button.label}
+            label={button.label}
           >
             <img
               src={button.iconSrc}
@@ -94,14 +95,13 @@ export function SelectionOverlay({
               aria-hidden="true"
               className={`selection-overlay__icon ${button.iconClassName ?? ''}`}
             />
-          </button>
+          </OverlayGlassButton>
         ))}
-        <button
-          type="button"
-          className="selection-overlay__button overlay-move-left"
+        <OverlayGlassButton
+          className="overlay-move-left"
           onClick={onMoveLeft}
-          aria-label="move dice left"
           disabled={!canMoveLeft}
+          label="move dice left"
         >
           <img
             src="/rigit_move.svg"
@@ -109,13 +109,12 @@ export function SelectionOverlay({
             aria-hidden="true"
             className="selection-overlay__icon overlay-icon-move-left"
           />
-        </button>
-        <button
-          type="button"
-          className="selection-overlay__button overlay-move-right"
+        </OverlayGlassButton>
+        <OverlayGlassButton
+          className="overlay-move-right"
           onClick={onMoveRight}
-          aria-label="move dice right"
           disabled={!canMoveRight}
+          label="move dice right"
         >
           <img
             src="/rigit_move.svg"
@@ -123,12 +122,11 @@ export function SelectionOverlay({
             aria-hidden="true"
             className="selection-overlay__icon"
           />
-        </button>
-        <button
-          type="button"
-          className="selection-overlay__button selection-overlay__confirm"
+        </OverlayGlassButton>
+        <OverlayGlassButton
+          className="selection-overlay__confirm"
           onClick={onConfirm}
-          aria-label="confirm selection"
+          label="confirm selection"
         >
           <img
             src="/check.svg"
@@ -136,8 +134,37 @@ export function SelectionOverlay({
             aria-hidden="true"
             className="selection-overlay__icon selection-overlay__icon--confirm"
           />
-        </button>
+        </OverlayGlassButton>
       </div>
     </div>
+  )
+}
+
+type OverlayGlassButtonProps = {
+  children: ReactNode
+  className: string
+  disabled?: boolean
+  label: string
+  onClick: () => void
+}
+
+function OverlayGlassButton({
+  children,
+  className,
+  disabled = false,
+  label,
+  onClick,
+}: OverlayGlassButtonProps) {
+  return (
+    <LiquidGlass
+      as="button"
+      type="button"
+      className={`selection-overlay__button ${className}`}
+      onClick={onClick}
+      aria-label={label}
+      disabled={disabled}
+    >
+      {children}
+    </LiquidGlass>
   )
 }

@@ -2,11 +2,9 @@
   --frame-padding: 1.25rem;
   --panel-height-limit: calc(100dvh - (var(--frame-padding) * 2));
   --panel-width-limit: calc(100vw - (var(--frame-padding) * 2));
-  --panel-width: min(
-    calc(var(--panel-height-limit) * 0.75),
-    var(--panel-width-limit),
-    42rem
-  );
+  --panel-width: min(calc(var(--panel-height-limit) * 0.75),
+      var(--panel-width-limit),
+      42rem);
   align-items: center;
   display: grid;
   justify-items: center;
@@ -53,32 +51,67 @@
 
 .selection-overlay__button {
   align-items: center;
-  background: rgba(255, 249, 240, 0.9);
-  border: 1px solid rgba(54, 36, 20, 0.18);
-  border-radius: 999px;
+  appearance: none;
+  background: transparent;
+  border: 0;
   color: #2b2017;
   cursor: pointer;
   display: inline-flex;
   font-size: min(3rem, calc(var(--overlay-button-size) * 0.46));
   font-weight: 700;
   height: var(--overlay-button-size);
+  isolation: isolate;
   justify-content: center;
+  margin: 0;
+  padding: 0;
   pointer-events: auto;
   position: absolute;
-  transition:
-    box-shadow 120ms ease,
-    background-color 120ms ease;
+  text-shadow: none;
   width: var(--overlay-button-size);
 }
 
-.selection-overlay__button:hover {
-  background: rgba(255, 252, 247, 0.98);
+.selection-overlay__button,
+.selection-overlay__button::before,
+.selection-overlay__button::after {
+  border-radius: 999px !important;
+}
+
+.selection-overlay__button::before {
+  backdrop-filter: blur(10px) saturate(1.18);
+}
+
+.selection-overlay__button::after {
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.28),
+      rgba(255, 248, 238, 0.1));
+  box-shadow:
+    inset 1px 1px 7px rgba(255, 255, 255, 0.56),
+    inset -1px -2px 4px rgba(73, 49, 28, 0.16),
+    0 10px 24px rgba(58, 40, 25, 0.1);
+}
+
+.selection-overlay__button:hover::after {
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.34),
+      rgba(255, 250, 242, 0.14));
 }
 
 .selection-overlay__button:disabled {
-  background: rgba(231, 223, 212, 0.92);
   cursor: default;
-  opacity: 0.52;
+}
+
+.selection-overlay__button:disabled::after {
+  background: linear-gradient(180deg,
+      rgba(241, 236, 230, 0.24),
+      rgba(218, 208, 195, 0.14));
+  box-shadow:
+    inset 1px 1px 5px rgba(255, 255, 255, 0.4),
+    inset -1px -1px 3px rgba(81, 63, 47, 0.1),
+    0 6px 14px rgba(58, 40, 25, 0.06);
+}
+
+.selection-overlay__button:disabled .selection-overlay__icon {
+  opacity: 0.4;
 }
 
 .selection-overlay__icon {
@@ -155,15 +188,26 @@
 }
 
 .selection-overlay__confirm {
-  background: rgba(42, 182, 114, 0.94);
   color: #fdfaf5;
   left: 50%;
   top: 92%;
   transform: translateX(-50%);
 }
 
-.selection-overlay__confirm:hover {
-  background: rgba(52, 196, 124, 0.98);
+.selection-overlay__confirm::after {
+  background: linear-gradient(180deg,
+      rgba(86, 232, 152, 0.86),
+      rgba(22, 164, 99, 0.72));
+  box-shadow:
+    inset 1px 1px 8px rgba(184, 255, 216, 0.28),
+    inset -1px -2px 5px rgba(8, 77, 43, 0.34),
+    0 11px 24px rgba(14, 99, 58, 0.24);
+}
+
+.selection-overlay__confirm:hover::after {
+  background: linear-gradient(180deg,
+      rgba(98, 240, 164, 0.92),
+      rgba(26, 176, 106, 0.8));
 }
 
 @media (max-width: 720px) {
