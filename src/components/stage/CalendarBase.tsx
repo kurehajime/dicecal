@@ -64,6 +64,18 @@ export function CalendarBase() {
           </Text>
         </group>
 
+        <Text
+          anchorX="right"
+          color="#f7f5ef"
+          fontSize={0.09}
+          letterSpacing={0.01}
+          position={[-2.04, -0.47, -0.805]}
+          rotation={[0, Math.PI, 0]}
+          textAlign="right"
+        >
+          @kurehajime
+        </Text>
+
         {diceDefinitions.map((definition) => (
           <mesh
             key={definition.id}
