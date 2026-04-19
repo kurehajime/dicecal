@@ -1,0 +1,38 @@
+name: Deploy Firebase Realtime Database Rules
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - database.rules.json
+      - firebase.json
+      - .github/workflows/deploy-firebase-database.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Firebase CLI
+        run: npm install --global firebase-tools
+
+      - name: Deploy Realtime Database Rules
+        run: firebase deploy --only database --project "${{ secrets.FIREBASE_PROJECT_ID }}" --non-interactive
