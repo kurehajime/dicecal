@@ -27,8 +27,53 @@
         },
         "diceOrientations": {
           ".validate": "newData.hasChildren(['month', 'weekday', 'date012678', 'date012345'])",
-          "$diceKind": {
-            ".validate": "($diceKind === 'month' || $diceKind === 'weekday' || $diceKind === 'date012678' || $diceKind === 'date012345') && newData.hasChildren(['x', 'y', 'z'])",
+          "month": {
+            ".validate": "newData.hasChildren(['x', 'y', 'z'])",
+            "x": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
+            },
+            "y": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
+            },
+            "z": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
+            },
+            "$other": {
+              ".validate": false
+            }
+          },
+          "weekday": {
+            ".validate": "newData.hasChildren(['x', 'y', 'z'])",
+            "x": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
+            },
+            "y": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
+            },
+            "z": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
+            },
+            "$other": {
+              ".validate": false
+            }
+          },
+          "date012678": {
+            ".validate": "newData.hasChildren(['x', 'y', 'z'])",
+            "x": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
+            },
+            "y": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
+            },
+            "z": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
+            },
+            "$other": {
+              ".validate": false
+            }
+          },
+          "date012345": {
+            ".validate": "newData.hasChildren(['x', 'y', 'z'])",
             "x": {
               ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 3 && newData.val() % 1 === 0"
             },
