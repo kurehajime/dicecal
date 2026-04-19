@@ -39,7 +39,7 @@
   animation: scene-panel-save-spin 1000ms linear forwards;
   display: block;
   height: 2.35rem;
-  opacity: 0.5;
+  opacity: 0.40;
   width: 2.35rem;
 }
 
@@ -62,12 +62,12 @@
 
 @keyframes scene-panel-save-spin {
   from {
-    opacity: 0.5;
+    opacity: 0.40;
     transform: rotate(0deg);
   }
 
   to {
-    opacity: 0.5;
+    opacity: 0.40;
     transform: rotate(360deg);
   }
 }
