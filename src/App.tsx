@@ -21,30 +21,42 @@ import {
 } from './features/calendar/model/state'
 import { isFirebaseConfigured } from './lib/firebase/client'
 
+type SyncStatus = 'loading' | 'ready' | 'error'
+
 function App() {
+  const firebaseConfigured = isFirebaseConfigured()
   const [persistedState, setPersistedState] = useState(() =>
     createInitialPersistedCalendarState(),
   )
   const [sessionState, setSessionState] = useState(() =>
     createInitialSessionCalendarState(),
   )
+  const [syncStatus, setSyncStatus] = useState<SyncStatus>(() =>
+    firebaseConfigured ? 'loading' : 'ready',
+  )
+  const [isSceneFadedIn, setIsSceneFadedIn] = useState(false)
 
   useEffect(() => {
-    if (!isFirebaseConfigured()) {
+    if (!firebaseConfigured) {
       return
     }
 
-    void bootstrapCalendarState()
+    void bootstrapCalendarState().catch((error) => {
+      setSyncStatus('error')
+      console.error('Failed to bootstrap calendar state from Realtime Database.', error)
+    })
 
     return subscribeToCalendarState(
       (nextState) => {
         setPersistedState(nextState)
+        setSyncStatus('ready')
       },
       (error) => {
+        setSyncStatus('error')
         console.error('Failed to sync calendar state from Realtime Database.', error)
       },
     )
-  }, [])
+  }, [firebaseConfigured])
 
   const commitPersistedState = (
     updater: (current: PersistedCalendarState) => PersistedCalendarState,
@@ -177,25 +189,50 @@ function App() {
     () => resolveDisplayedOrientations(persistedState.diceStates, sessionState),
     [persistedState.diceStates, sessionState],
   )
+  const isCalendarVisible = syncStatus !== 'loading'
+
+  useEffect(() => {
+    if (!isCalendarVisible || isSceneFadedIn) {
+      return
+    }
+
+    const frameId = window.requestAnimationFrame(() => {
+      setIsSceneFadedIn(true)
+    })
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+    }
+  }, [isCalendarVisible, isSceneFadedIn])
 
   return (
     <main className="app-shell">
       <section className="scene-panel" aria-label="Cube calendar 3D scene">
-        <SceneCanvas
-          diceOrientations={displayedOrientations}
-          diceOrder={diceOrder}
-          onSelectDice={handleSelectDice}
-          selectedDiceId={selectedDiceId}
-        />
-        <SelectionOverlay
-          canMoveLeft={canMoveLeft}
-          canMoveRight={canMoveRight}
-          selectedDiceId={selectedDiceId}
-          onConfirm={handleConfirm}
-          onMoveLeft={handleMoveLeft}
-          onMoveRight={handleMoveRight}
-          onRotate={handleRotate}
-        />
+        {isCalendarVisible ? (
+          <div
+            className={`scene-panel__content${
+              isSceneFadedIn ? ' scene-panel__content--visible' : ''
+            }`}
+          >
+            <SceneCanvas
+              diceOrientations={displayedOrientations}
+              diceOrder={diceOrder}
+              onSelectDice={handleSelectDice}
+              selectedDiceId={selectedDiceId}
+            />
+          </div>
+        ) : null}
+        {isCalendarVisible ? (
+          <SelectionOverlay
+            canMoveLeft={canMoveLeft}
+            canMoveRight={canMoveRight}
+            selectedDiceId={selectedDiceId}
+            onConfirm={handleConfirm}
+            onMoveLeft={handleMoveLeft}
+            onMoveRight={handleMoveRight}
+            onRotate={handleRotate}
+          />
+        ) : null}
       </section>
     </main>
   )
